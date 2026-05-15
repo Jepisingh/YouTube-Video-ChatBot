@@ -47,7 +47,7 @@ youtube-chatbot/
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/your-username/youtube-chatbot.git
+git clone [https://github.com/your-username/youtube-chatbot.git](https://github.com/Jepisingh/YouTube-Video-ChatBot)
 
 cd youtube-chatbot
 ```
