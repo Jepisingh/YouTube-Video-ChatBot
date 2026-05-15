@@ -18,8 +18,12 @@ from langchain_core.output_parsers import StrOutputParser
 
 # ---------------- LOAD ENV ----------------
 
-import streamlit as st
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # ---------------- EXTRACT VIDEO ID ----------------
 
