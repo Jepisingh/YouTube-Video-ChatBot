@@ -143,7 +143,3 @@ Example Questions:
 * What are the key points?
 
 ---
-
-# 👨‍💻 Author
-
-Developed by Your Name
