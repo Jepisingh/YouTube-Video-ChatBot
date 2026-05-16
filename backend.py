@@ -38,35 +38,30 @@ def extract_video_id(url):
 # ---------------- GET TRANSCRIPT ----------------
 
 def get_transcript_text(video_url):
+
     video_id = extract_video_id(video_url)
-    # TRY NORMAL TRANSCRIPT ----------
+
+    # ---------- TRY NORMAL TRANSCRIPT ----------
+
     try:
+
         ytt_api = YouTubeTranscriptApi()
+
         transcript_list = ytt_api.fetch(video_id)
+
         transcript_text = " ".join(
             chunk.text for chunk in transcript_list
         )
+
         return transcript_text
 
-    # FALLBACK USING yt-dlp ----------
-    except Exception:
-        import yt_dlp
-        ydl_opts = {
-            "skip_download": True,
-            "writesubtitles": True,
-            "writeautomaticsub": True,
-            "subtitleslangs": ["en"],
-            "quiet": True
-        }
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(video_url, download=False)
-            subtitles = info.get("automatic_captions")
-            if not subtitles:
-                raise Exception("No transcript available for this video.")
-        return (
-            "Transcript could not be fetched directly, "
-            "but video metadata was loaded."
-        )
+    # ---------- IF FAILED ----------
+
+    except Exception as e:
+
+        print("Transcript Error:", e)
+
+        return None
 
 # ---------------- CREATE CHUNKS ----------------
 
@@ -156,6 +151,10 @@ Answer:
 def build_chatbot(video_url):
 
     transcript_text = get_transcript_text(video_url)
+
+    if transcript_text is None:
+
+        return None
 
     chunks = create_chunks(transcript_text)
 
