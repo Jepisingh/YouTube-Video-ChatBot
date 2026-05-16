@@ -54,10 +54,14 @@ if process_btn:
             try:
 
                 chain = build_chatbot(youtube_url)
-
-                st.session_state.chain = chain
-
-                st.success("Video Ready For Chat ✅")
+                if chain is None:
+                    st.error(
+                         "Transcript could not be fetched for this video. "
+                         "Try another video with subtitles/captions."
+                           )
+                else:
+                   st.session_state.chain = chain
+                   st.success("Video Ready For Chat ✅")
 
             except Exception as e:
 
